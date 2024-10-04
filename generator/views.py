@@ -24,11 +24,11 @@ def generate_signature(request):
                 "phone": formatted_number,
             }
 
-            content = render_to_string("result.html", context)
-            with open(
-                f"{STATIC_URL}/{context['name']}.html", "w", encoding="UTF-8"
-            ) as static_file:
-                static_file.write(content)
+            # content = render_to_string("result.html", context)
+            # with open(
+            #     f"{STATIC_URL}/{context['name']}.html", "w", encoding="UTF-8"
+            # ) as static_file:
+            #     static_file.write(content)
 
             return render(request, "result.html", context)
     else:
