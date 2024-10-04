@@ -1,6 +1,8 @@
 from django.shortcuts import render
+from django.template.loader import render_to_string
+
+from signature_generator.settings import STATIC_URL
 from .forms import SignatureForm
-from django.core.files.storage import FileSystemStorage
 
 
 def generate_signature(request):
@@ -21,6 +23,13 @@ def generate_signature(request):
                 "division": form.cleaned_data.get("division"),
                 "phone": formatted_number,
             }
+
+            content = render_to_string("result.html", context)
+            with open(
+                f"{STATIC_URL}/{context['name']}.html", "w", encoding="UTF-8"
+            ) as static_file:
+                static_file.write(content)
+
             return render(request, "result.html", context)
     else:
         form = SignatureForm()
